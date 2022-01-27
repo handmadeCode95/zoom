@@ -10,5 +10,21 @@ html(lang="kr")
         header 
             h1 Soom
         main
-            
-        script(src="public/js/app.js")
+            div#welcome
+                form#name
+                    input(type="text" placeholder="nickname", required)
+                    button Save
+                form#enter
+                    input(placeholder="room name", required, type="text")
+                    button Enter
+                h4 Open Rooms
+                ul
+            div#room
+                h3
+                ul
+                form#msg
+                    input(type="text" placeholder="message", required)
+                    button Send
+                button#leave Leave
+        script(src="/socket.io/socket.io.js")
+        script(src="/public/js/app.js")
