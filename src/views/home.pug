@@ -5,14 +5,33 @@ html(lang="kr")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Soom
-        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+        link(rel="stylesheet", href="/public/css/style.css")
     body 
-        header
-            h1 Soom
-        main 
-            video#myFace(autoplay, playsinline, width="400", height="400")
-                button#mute Mute
-                button#camera Turn Camera Off
-                select#cameras
+        div.container
+            h1.title Soom
+            div#welcome
+                form.welcome__login-form
+                    input#nickname(placeholder="Nickname", type="text")
+                    input#roomName(placeholder="Room name", required, type="text")
+                    button Enter
+            div#call.call
+                div.call__peerFaceView
+                    video#peerFace(autoplay, playsinline)
+                    div.call__myFaceView
+                        video#myFace(autoplay, playsinline)
+                    div.call__grid
+                        div#mute
+                            i.fas.fa-volume-mute
+                        div#camera
+                            i.fas.fa-video-slash
+                        div.call__grid-leave#leave
+                            i.fas.fa-phone-slash
+                        select.call__grid-cameras#cameras
+                    div.call__chat#chat
+                        ul
+                        form#message
+                            input(type="text", placeholder="Message", required)
+                            button.far.fa-comment
         script(src="/socket.io/socket.io.js")
         script(src="/public/js/app.js")
+        script(src="https://kit.fontawesome.com/3e3e97c847.js", crossorigin="anonymous")
