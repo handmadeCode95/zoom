@@ -113,6 +113,10 @@ async function initCall() {
   welcome.hidden = true;
   call.hidden = false;
   title.hidden = true;
+  const span = document.getElementById("notification");
+  if (span) {
+    span.remove();
+  }
   msgForm.addEventListener("submit", handleMessageSubmit);
   await getMedia();
   makeConnection();
@@ -162,7 +166,11 @@ function handleMessageSubmit(event) {
   event.preventDefault();
   const input = msgForm.querySelector("input");
   const value = input.value;
-  myDataChannel.send(`${nickname}: ${value}`);
+  try {
+    myDataChannel.send(`${nickname}: ${value}`);
+  } catch (e) {
+    console.log(e);
+  }
   addMessage(`You: ${value}`);
   input.value = "";
 }
@@ -200,6 +208,14 @@ socket.on("answer", (answer) => {
 
 socket.on("ice", (ice) => {
   myPeerConnection.addIceCandidate(ice);
+});
+
+socket.on("full", () => {
+  handleLeaveClick();
+  const span = document.createElement("span");
+  span.innerText = "This room is already full.";
+  span.id = "notification";
+  welcome.appendChild(span);
 });
 
 // RTC Code

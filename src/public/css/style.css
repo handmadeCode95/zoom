@@ -147,7 +147,6 @@ video {
   flex-direction: column;
   justify-content: flex-end;
   overflow: hidden;
-  color: linear-gradient(to up, rgba(0, 0, 0, 1) 10%);
 }
 
 .call__chat form {
@@ -170,4 +169,10 @@ video {
   font-size: 16px;
   color: white;
   border: 2px solid white;
+}
+
+#notification {
+  display: block;
+  margin-top: 10px;
+  font-size: 14px;
 }

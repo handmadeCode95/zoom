@@ -13,8 +13,17 @@ app.get("/*", (req, res) => res.redirect("/"));
 const httpServer = http.createServer(app);
 const wsServer = SocketIO(httpServer);
 
+function countUser(roomName) {
+  return wsServer.sockets.adapter.rooms.get(roomName)?.size;
+}
+
 wsServer.on("connection", (socket) => {
   socket.on("join_room", (roomName) => {
+    const userCount = countUser(roomName);
+    if (userCount >= 2) {
+      socket.emit("full");
+      return;
+    }
     socket.join(roomName);
     socket.to(roomName).emit("welcome");
   });
